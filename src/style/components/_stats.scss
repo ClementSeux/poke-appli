@@ -1,0 +1,132 @@
+#stat-table {
+  align-items: start;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+  &.size-s {
+    min-width: 310px;
+  }
+  &.size-l {
+    min-width: 410px;
+  }
+
+  padding-left: 5px;
+
+  & > h3 {
+    color: #777;
+    rotate: -90deg;
+    margin: auto 0 auto 0;
+  }
+}
+.rep-line {
+  &.size-s.line50,
+  &.size-s.line150,
+  &.size-s.line200 {
+    opacity: 0;
+
+    & > .rep {
+      opacity: 0;
+    }
+  }
+
+  &.size-l,
+  &.size-s.line100 {
+    opacity: 1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    border-right: 1px dotted black;
+    &.line50 {
+      width: 100px;
+    }
+    &.line100 {
+      width: 200px;
+    }
+    &.size-s.line100 {
+      width: 100px;
+    }
+    &.line150 {
+      width: 300px;
+    }
+    > .rep {
+      color: #777;
+      font-size: smaller;
+      float: right;
+    }
+  }
+}
+
+#table {
+  margin: 0;
+  padding: 0;
+
+  position: relative;
+  border-left: 1px solid black;
+
+  &.size-l {
+    padding-top: 10px;
+  }
+}
+.stat-line {
+  text-align: end;
+
+  margin: 0;
+  padding: 5px 0;
+
+  height: 30px;
+}
+
+.bar {
+  margin: 0;
+  padding: 0;
+  height: 20px;
+  background-color: red;
+  transition: width 2s;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.hp {
+  background-color: rgb(185, 233, 185);
+  border: 1px solid rgb(96, 231, 96);
+}
+
+.speed {
+  background-color: rgb(172, 223, 247);
+  border: 1px solid rgb(44, 180, 221);
+}
+
+.attack {
+  background-color: rgb(235, 143, 143);
+  border: 1px solid rgb(235, 48, 48);
+}
+
+.defense {
+  background-color: rgb(238, 199, 91);
+  border: 1px solid rgb(235, 176, 48);
+}
+
+.special-attack {
+  background-color: rgb(224, 156, 219);
+  border: 1px solid rgb(229, 48, 235);
+}
+
+.special-defense {
+  background-color: rgb(197, 156, 224);
+  border: 1px solid rgb(176, 48, 235);
+}
+
+.stat-tag {
+  white-space: nowrap;
+  width: fit-content;
+  overflow: visible;
+
+  color: #777;
+  opacity: 0;
+  &:hover {
+    opacity: 1;
+  }
+}

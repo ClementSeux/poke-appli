@@ -1,0 +1,50 @@
+.boxlat {
+  margin: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+#new-poke {
+  padding: 3px;
+  margin: 10px 0;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  background-color: #eecc99;
+  border: 1px solid #f3a736;
+  box-shadow: 1px 5px rgba(15, 15, 15, 0.8),
+    inset 1px 5px rgba(255, 255, 255, 0.4);
+  &:active {
+    transform: translate(0, 5px);
+    box-shadow: 1px 3px rgba(15, 15, 15, 0.8),
+      inset 1px 5px rgba(255, 255, 255, 0.4);
+  }
+}
+#form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.field {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+input[type="number"] {
+  width: 65px;
+  font-size: large;
+}

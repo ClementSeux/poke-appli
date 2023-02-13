@@ -1,0 +1,18 @@
+.sprite {
+  width: 80%;
+}
+.poke-name {
+  &.size-s {
+    font-size: 0.7em;
+  }
+  &.size-m {
+    font-size: 1.5em;
+  }
+
+  &.size-l {
+    font-size: 3em;
+  }
+}
+.type-tags-line {
+  margin: 10px;
+}

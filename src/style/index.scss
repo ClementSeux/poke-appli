@@ -1,0 +1,68 @@
+@import "./settings";
+@import "./components/pokeInfo.scss";
+@import "./components/card.scss";
+@import "./components/typeTag.scss";
+@import "./components/move-list.scss";
+@import "./components/navigation.scss";
+@import "./components/stats.scss";
+@import "./components/team-builder.scss";
+
+body {
+  height: 100vh;
+
+  font-family: sans-serif;
+  background-image: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
+}
+
+#wrapper {
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#box1,
+#box2,
+#box3 {
+  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#screen {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background-color: white;
+  border-radius: 25px;
+
+  width: 100%;
+  max-width: 500px;
+  padding: 10px;
+  margin: 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &.size-s {
+    width: 150px;
+  }
+  &.size-m {
+    max-width: 400px;
+  }
+  &.size-l {
+    max-width: 450px;
+  }
+}

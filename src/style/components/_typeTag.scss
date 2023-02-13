@@ -1,0 +1,67 @@
+.type-tag {
+  border-radius: 5px;
+  border: #333 1px solid;
+  box-shadow: 2px 2px #888, inset 2px 2px rgba(250, 250, 250, 0.8);
+  margin: 5px;
+  padding: 3px;
+}
+.normal {
+  background-color: rgb(224, 224, 224);
+}
+.feu {
+  background-color: rgb(238, 135, 67);
+}
+.eau {
+  background-color: rgb(91, 119, 245);
+  color: white;
+}
+.plante {
+  background-color: rgb(94, 247, 158);
+}
+.insecte {
+  background-color: rgb(164, 250, 143);
+}
+.électrik {
+  background-color: rgb(250, 247, 86);
+}
+.glace {
+  background-color: rgb(124, 255, 255);
+}
+.roche {
+  background-color: rgb(179, 155, 105);
+  color: white;
+}
+.sol {
+  background-color: rgb(240, 188, 121);
+}
+.vol {
+  background-color: rgb(148, 228, 253);
+}
+.spectre {
+  background-color: rgb(129, 105, 145);
+  color: white;
+}
+.poison {
+  background-color: rgb(195, 126, 212);
+}
+.psy {
+  background-color: rgb(236, 165, 233);
+}
+.ténèbres {
+  background-color: rgb(59, 58, 59);
+  color: white;
+}
+.fée {
+  background-color: rgb(248, 157, 218);
+}
+.combat {
+  background-color: rgb(240, 104, 104);
+}
+.acier {
+  background-color: rgb(82, 102, 129);
+  color: white;
+}
+.dragon {
+  background-color: rgb(43, 77, 121);
+  color: rgb(228, 85, 85);
+}

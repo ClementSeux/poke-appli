@@ -26,13 +26,13 @@ const TeamBuilder = () => {
   ];
 
   const setNumbers = (array) => {
-    for (var i = 1; i < 7; i++) {
+    for (var i = 0; i < 6; i++) {
       arrayOfSetters[i](array[i]);
     }
   };
   const getRndNumbers = () => {
     let array = [];
-    for (var i = 1; i < 7; i++) {
+    for (var i = 0; i < 6; i++) {
       array.push(Math.ceil(Math.random() * 1007) + 1);
     }
     setNumbers(array);

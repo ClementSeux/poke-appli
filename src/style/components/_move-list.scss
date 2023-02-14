@@ -5,6 +5,19 @@
   align-items: center;
   padding: 5px;
   text-align: center;
+  font-size: small;
+}
+.header-line {
+  font-weight: 700;
+  background-color: #f3f3f3;
+}
+.tags-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0 20px 0 0;
+  width: 40%;
 }
 .scroller {
   width: 300px;

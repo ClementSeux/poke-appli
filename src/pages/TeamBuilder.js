@@ -45,8 +45,7 @@ const TeamBuilder = () => {
   const getTypeBar = () => {
     let content = [];
     for (var i = 1; i < 19; i++) {
-      let url = `https://pokeapi.co/api/v2/type/${i}/`;
-      content.push(<TypeTag type={url} />);
+      content.push(<TypeTag type={i} />);
     }
     return content;
   };
@@ -54,8 +53,9 @@ const TeamBuilder = () => {
   const getField = (i) => {
     return (
       <div className="field">
-        <label># </label>
+        <label className="diese"># | </label>
         <input
+          className="input-number"
           type="number"
           min="1"
           max="1008"

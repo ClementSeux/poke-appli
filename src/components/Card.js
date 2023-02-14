@@ -18,9 +18,9 @@ const Card = ({ number, size }) => {
         setPoke(res.data);
         setSprite(res.data.sprites.front_default);
         setTypes(res.data.types);
-        setType1(res.data.types[0].type.url);
+        setType1(res.data.types[0].type.name);
         if (res.data.types[1]) {
-          setType2(res.data.types[1].type.url);
+          setType2(res.data.types[1].type.name);
         } else {
           setType2(null);
         }

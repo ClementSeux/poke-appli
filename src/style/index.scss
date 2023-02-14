@@ -6,6 +6,7 @@
 @import "./components/navigation.scss";
 @import "./components/stats.scss";
 @import "./components/team-builder.scss";
+@import "./components/carousel.scss";
 
 body {
   height: 100vh;
@@ -65,4 +66,41 @@ body {
   &.size-l {
     max-width: 450px;
   }
+}
+
+.button {
+  text-align: center;
+  min-height: 24px;
+  width: 180px;
+  border-radius: 12px;
+  padding: 3px 10px;
+  margin: 10px;
+  background-image: linear-gradient(90deg, #f66585 0%, #fda085 100%);
+  color: white;
+  box-shadow: 0 3px rgba(150, 150, 150, 0.65);
+  cursor: pointer;
+}
+
+.input-number {
+  font-weight: 700;
+  color: white;
+  height: 32px;
+  width: 60x;
+  border-radius: 16px;
+  padding: 0 0 0 20px;
+  text-align: center;
+  border: 4px solid white;
+  background-image: linear-gradient(90deg, #f66585 0%, #fda085 100%);
+}
+
+.diese {
+  content: "#";
+  color: white;
+  position: relative;
+  left: 35px;
+  top: 7px;
+  z-index: 5;
+
+  height: 32px;
+  width: 20px;
 }

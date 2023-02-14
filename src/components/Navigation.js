@@ -7,25 +7,25 @@ const Navigation = ({ size }) => {
       <h3 id="title-menu">MENU</h3>
       <ul>
         <NavLink
-          className={(nav) => (nav.isActive ? "nav-active" : "")}
+          className={(nav) => "button " + (nav.isActive ? "nav-active" : "")}
           to="/ "
         >
           <li>Home</li>
         </NavLink>
         <NavLink
-          className={(nav) => (nav.isActive ? "nav-active" : "")}
+          className={(nav) => "button " + (nav.isActive ? "nav-active" : "")}
           to="/poke-info"
         >
           <li>Database</li>
         </NavLink>
         <NavLink
-          className={(nav) => (nav.isActive ? "nav-active" : "")}
+          className={(nav) => "button " + (nav.isActive ? "nav-active" : "")}
           to="/team-builder "
         >
           <li>Team Builder</li>
         </NavLink>
         <NavLink
-          className={(nav) => (nav.isActive ? "nav-active" : "")}
+          className={(nav) => "button " + (nav.isActive ? "nav-active" : "")}
           to="/ "
         >
           <li>Card</li>

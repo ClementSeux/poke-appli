@@ -51,11 +51,13 @@ const MovesList = ({ number }) => {
       frListing.push({
         frName: getTranslation(move.names),
         pow: move.power,
+        acc: move.accuracy,
         type: move.type,
+        class: move.damage_class.name,
       });
       frListing = frListing
         .sort((a, b) => b.pow - a.pow)
-        .filter((move) => move.pow >= 55 && move.pow < 150)
+        .filter((move) => move.pow >= 55 && move.pow < 150 && move.acc > 69)
         .slice(0, 20);
     });
 
@@ -98,14 +100,29 @@ const MovesList = ({ number }) => {
   return (
     <div className="card ">
       <ul className="scroller">
+        <li key={0}>
+          <div className="move-line header-line">
+            <span className="">
+              <b>Attaque</b> Puis. / Précis.
+            </span>
+            <div className="tags-section">
+              <span>Classe </span>
+              <span>Type</span>
+            </div>
+          </div>
+          <hr />
+        </li>
         {frNames.map((move, i) => {
           return (
             <li key={i}>
               <div className="move-line">
                 <span className="">
-                  {move.frName} pow: {move.pow}
+                  <b>{move.frName}</b> {move.pow} / {move.acc}
                 </span>
-                <TypeTag type={move.type.url} />
+                <div className="tags-section">
+                  <TypeTag type={move.class} />
+                  <TypeTag type={move.type.name} />
+                </div>
               </div>
               <hr />
             </li>

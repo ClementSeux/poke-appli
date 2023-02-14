@@ -77,7 +77,7 @@
 
 .ball-row {
   position: absolute;
-  top: 80px;
+  top: 105px;
   left: 300px;
   transition: left 0.5s;
 }
@@ -89,13 +89,13 @@
 }
 
 .ball {
-  margin: 3px;
+  margin: 5px;
   height: 28px;
   width: 28px;
   padding: 0;
   position: relative;
   opacity: 0;
-  transition: opacity 0.4s, margin 0.5s;
+  transition: opacity 0.8s, margin 0.5s, width 0.5s, height 0.5s, transform 0.5s;
   &.semivisible-ball {
     opacity: 0.5;
   }
@@ -104,6 +104,15 @@
   }
   &.visible-ball.quartervisible-ball.semivisible-ball {
     opacity: 1;
+    height: 30px;
+    width: 30px;
+    margin: 5px;
+    & > .red-cap {
+      border-radius: 15px 15px 0 0;
+    }
+    & > .white-cap {
+      border-radius: 0 0 15px 15px;
+    }
   }
   &.visible-ball.quartervisible-ball.semivisible-ball.selected {
     height: 40px;
@@ -125,6 +134,7 @@
   background-color: red;
   border-radius: 14px 14px 0 0;
   box-shadow: inset 6px 3px 7px rgba(200, 200, 200, 0.8);
+  transition: width 0.5s, height 0.5s, border-radius 0.5s;
 }
 .white-cap {
   height: 50%;
@@ -134,6 +144,7 @@
   background-color: white;
   border-radius: 0 0 14px 14px;
   box-shadow: inset -6px -3px 7px rgba(99, 99, 99, 0.8);
+  transition: width 0.5s, height 0.5s, border-radius 0.5s;
 }
 
 .flying-sprite-box {

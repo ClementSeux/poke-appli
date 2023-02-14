@@ -16,11 +16,20 @@ const Carousel = ({ range }) => {
             className={
               "ball " +
               (i === cursor ? "selected " : "") +
-              (i < cursor + 5 && i > cursor - 6 ? "visible-ball " : "") +
-              (i < cursor + 7 && i > cursor - 8 ? "quartervisible-ball " : "") +
-              (i < cursor + 8 && i > cursor - 9 ? "semivisible-ball" : "")
+              (i < cursor + 3 && i > cursor - 3 ? "visible-ball " : "") +
+              (i < cursor + 4 && i > cursor - 4 ? "quartervisible-ball " : "") +
+              (i < cursor + 5 && i > cursor - 5 ? "semivisible-ball" : "")
             }
             key={i}
+            style={{
+              transform:
+                "translate(0," +
+                Math.abs(i - cursor) *
+                  Math.abs(i - cursor) *
+                  Math.abs(i - cursor) *
+                  -1 +
+                "px)",
+            }}
           >
             <div className="red-cap"></div>
             <div className="white-cap"></div>
@@ -80,13 +89,13 @@ const Carousel = ({ range }) => {
 
   return (
     <div className="display-carousel">
-      <div className="left-zone" onClick={() => goLeft()}>
+      <div className="left-zone" onMouseEnter={() => goLeft()}>
         left
       </div>
-      <div className="right-zone" onClick={() => goRight()}>
+      <div className="right-zone" onMouseEnter={() => goRight()}>
         right
       </div>
-      <div className="ball-row" style={{ left: 331 - 34 * cursor + "px" }}>
+      <div className="ball-row" style={{ left: 290 - 38 * cursor + "px" }}>
         <div className="circle">{ballMaker()}</div>
       </div>
       <div className="flying-sprite-box">{spriteBoxMaker()}</div>

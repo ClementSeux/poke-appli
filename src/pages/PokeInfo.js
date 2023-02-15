@@ -1,73 +1,148 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Card from "../components/Card";
 import MovesList from "../components/MovesList";
 import Navigation from "../components/Navigation";
 import SelectionPanel from "../components/SelectionPanel";
 import Stats from "../components/Stats";
+import SelectionMode from "../screen/SelectionMode";
 
 const PokeInfo = () => {
   //back
-  const [number, setNumber] = useState(25);
 
-  const [oldValue, setOldValue] = useState(false);
+  const [selectionModeToggle, toggleSelectionMode] = useState(false);
+  const [pokeData, setPokeData] = useState({
+    id: null,
+    frName: "",
+    spriteUrl: "",
+    moveListEn: [],
+    types: [],
+    stats: [],
+  });
+
+  const [number, setNumber] = useState(25);
 
   const getRndNumber = () => {
     setNumber(Math.ceil(Math.random() * 1007) + 1);
   };
 
+  const loadPokeData = async (num) => {
+    let poke = {
+      id: num,
+      frName: "",
+      spriteUrl: "",
+      moveListEn: [],
+      types: [],
+      stats: [],
+    };
+
+    await axios
+      .get(`https://pokeapi.co/api/v2/pokemon/${num}`)
+      .then(async (res) => {
+        poke.spriteUrl = res.data.sprites.front_default;
+
+        poke.types = [res.data.types[0].type.name];
+
+        poke.moveListEn = res.data.moves;
+
+        if (res.data.types[1]) {
+          poke.types.push(res.data.types[1].type.name);
+        }
+
+        let array = [];
+        res.data.stats.map((entry) => {
+          let statName = entry.stat.name;
+          let base_stat = entry.base_stat;
+          array.push({ name: statName, base_stat: base_stat });
+        });
+        poke.stats = array;
+
+        await axios.get(res.data.species.url).then((res) => {
+          let tempFrName = "";
+          try {
+            tempFrName = res.data.names.filter(
+              (n) => n.language.name === "fr"
+            )[0].name;
+          } catch {
+            tempFrName =
+              res.data.names.filter((n) => n.language.name === "en")[0].name +
+              " (en)";
+          }
+          poke.frName = tempFrName;
+        });
+        setPokeData(poke);
+      });
+  };
+
+  const toggleMode = () => {
+    toggleSelectionMode(!selectionModeToggle);
+  };
+
+  const toggleModeButton = () => {
+    return (
+      <div className="button" onClick={() => toggleMode()}>
+        Galerie
+      </div>
+    );
+  };
   useEffect(() => {
     getRndNumber();
   }, []);
 
   useEffect(() => {
-    setOldValue(number);
+    loadPokeData(number);
   }, [number]);
+
+  useEffect(() => {
+    console.log(selectionModeToggle);
+  }, [selectionModeToggle]);
 
   //front
   return (
-    <div id="wrapper">
-      <div id="box1">
-        <Navigation size="m" />
+    <>
+      <SelectionMode visible={selectionModeToggle} toggleMode={toggleMode} />
 
-        <Card number={number} size="m" />
+      <div id="wrapper">
+        <div id="box1">
+          <Navigation size="m" />
 
-        <div id="form">
-          <div
-            style={{
-              border: "4px solid white",
-            }}
-            className="button"
-            onClick={() => {
-              getRndNumber();
-            }}
-          >
-            Générer un pokémon
-          </div>
-          <div className="field">
-            <label className="diese"># |</label>
-            <input
-              className="input-number"
-              type="number"
-              value={number}
-              min="1"
-              max="1008"
-              onChange={(e) => {
-                e.target.value > 0 && e.target.value < 1009
-                  ? setNumber(e.target.value)
-                  : setNumber(oldValue);
+          <Card poke={pokeData} size="m" />
+
+          <div id="form">
+            <div
+              className="button"
+              onClick={() => {
+                getRndNumber();
               }}
-            />
+            >
+              Générer un pokémon
+            </div>
+            <div className="field">
+              <label className="diese"># |</label>
+              <input
+                className="input-number"
+                type="number"
+                value={number}
+                min="1"
+                max="1008"
+                onChange={(e) => {
+                  e.target.value > 0 && e.target.value < 1009
+                    ? setNumber(e.target.value)
+                    : setNumber(number);
+                }}
+              />
+              {toggleModeButton()}
+            </div>
           </div>
-          <SelectionPanel />
+        </div>
+
+        <div id="box2">
+          <Stats stats={pokeData.stats} size="l" />
+
+          <MovesList moveListEn={pokeData.moveListEn} size={"l"} />
         </div>
       </div>
-
-      <div id="box2">
-        <Stats number={number} size="l" />
-
-        <MovesList number={number} />
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -1,0 +1,20 @@
+.grey-screen {
+  position: absolute;
+  opacity: 0;
+  float: right;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  background-color: grey;
+  &.visible {
+    opacity: 1;
+    z-index: 100;
+  }
+}
+
+.selection-display {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}

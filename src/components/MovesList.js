@@ -2,9 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import TypeTag from "./TypeTag";
 
-const MovesList = ({ number }) => {
+const MovesList = ({ moveListEn, size }) => {
   const isInitialMount = useRef(true);
-  const [moves, setMoves] = useState([]);
+
   const [urls, setUrls] = useState([]);
   const [list, setList] = useState([]);
   const [frNames, setFrNames] = useState([]);
@@ -19,18 +19,11 @@ const MovesList = ({ number }) => {
     return frName;
   };
 
-  //updates moves
-  const getList = async () => {
-    await axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${number}`)
-      .then((res) => {
-        setMoves(res.data.moves);
-      });
-  };
   //updates urls
   const fetchUrls = () => {
+    console.log(moveListEn);
     let urlList = [];
-    moves.map((move) => urlList.push(move.move.url));
+    moveListEn.map((move) => urlList.push(move.move.url));
     setUrls(urlList);
   };
 
@@ -64,22 +57,13 @@ const MovesList = ({ number }) => {
     setFrNames(frListing);
   };
 
-  //cascade effects
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      getList();
-    }
-  }, [number]);
-
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else {
       fetchUrls();
     }
-  }, [moves]);
+  }, [moveListEn]);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -98,15 +82,17 @@ const MovesList = ({ number }) => {
   }, [list]);
 
   return (
-    <div className="card ">
-      <ul className="scroller">
+    <div className={"card size-" + size}>
+      <ul className={"scroller size-" + size}>
         <li key={0}>
           <div className="move-line header-line">
             <span className="">
-              <b>Attaque</b> Puis. / Précis.
+              <b>Attaque</b>{" "}
             </span>
+            {size === "l" && <span>Puis. / Précis.</span>}
+
             <div className="tags-section">
-              <span>Classe </span>
+              {size === "l" && <span>Classe </span>}
               <span>Type</span>
             </div>
           </div>
@@ -117,10 +103,17 @@ const MovesList = ({ number }) => {
             <li key={i}>
               <div className="move-line">
                 <span className="">
-                  <b>{move.frName}</b> {move.pow} / {move.acc}
+                  <b>{move.frName}</b>{" "}
                 </span>
+                {size === "l" && (
+                  <span>
+                    {" "}
+                    {move.pow} / {move.acc}
+                  </span>
+                )}
+
                 <div className="tags-section">
-                  <TypeTag type={move.class} />
+                  {size === "l" && <TypeTag type={move.class} />}
                   <TypeTag type={move.type.name} />
                 </div>
               </div>

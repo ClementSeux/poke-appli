@@ -85,7 +85,6 @@ const SelectionPanel = () => {
       range.push(i);
     }
     setRange(range);
-    console.log(range);
   };
 
   useEffect(() => {

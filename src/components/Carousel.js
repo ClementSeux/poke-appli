@@ -1,16 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import { clear } from "@testing-library/user-event/dist/clear";
 
 const Carousel = ({ range }) => {
   const [cursor, setCursor] = useState(1);
   const [loaded, setLoaded] = useState(12);
   const [pokeData, setData] = useState([]);
+  const [moveRight, setMoveRight] = useState(false);
+  const [moveLeft, setMoveLeft] = useState(false);
 
   const ballMaker = () => {
     let content = [];
     range.map((i) => {
       content.push(
-        <div className="">
+        <div className="" key={i}>
           {" "}
           <div
             className={
@@ -31,7 +34,11 @@ const Carousel = ({ range }) => {
                 "px)",
             }}
           >
-            <div className="red-cap"></div>
+            <div
+              className={
+                "red-cap red-cap" + (i % 7 === 0 || i % 5 === 0 ? "2" : "1")
+              }
+            ></div>
             <div className="white-cap"></div>
           </div>
         </div>
@@ -40,51 +47,20 @@ const Carousel = ({ range }) => {
     return content;
   };
 
-  const spriteBoxMaker = () => {
-    let content = [];
-    range.map((i) => {
-      content.push(
-        <img
-          className="flying-sprite"
-          src={
-            "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" +
-            i +
-            ".png"
-          }
-        />
-      );
-    });
-    return content;
-  };
-
   const goLeft = () => {
-    if (cursor > 1) {
+    if (cursor > range[0]) {
       setCursor(cursor - 1);
     }
   };
 
   const goRight = () => {
-    if (range.length > cursor) {
+    if (range[range.length - 1] > cursor) {
       setCursor(cursor + 1);
     }
-    console.log(cursor);
   };
 
-  // const fetchData = () => {
-  //   let listToRequest = [];
-  //   range.slice(0, cursor + 12).map(async (i) => {
-  //     if (pokeData[i] === undefined && i < loaded) {
-  //       setLoaded(i);
-  //       listToRequest.push(i);
-  //     }
-  //     let requests = listToRequest.map((j) => axios.get("https://pokeapi.co/api/v2/pokemon/" + j)
-
-  //     });
-  //   });
-  // };
-
   useEffect(() => {
-    setCursor(1);
+    setCursor(range[0]);
   }, [range]);
 
   return (
@@ -95,10 +71,15 @@ const Carousel = ({ range }) => {
       <div className="right-zone" onMouseEnter={() => goRight()}>
         right
       </div>
-      <div className="ball-row" style={{ left: 290 - 38 * cursor + "px" }}>
+      <div
+        className="ball-row"
+        style={{
+          left: window.innerWidth / 2 - 38 * (cursor - range[0] + 1) + "px",
+        }}
+      >
         <div className="circle">{ballMaker()}</div>
       </div>
-      <div className="flying-sprite-box">{spriteBoxMaker()}</div>
+      {/* <div className="flying-sprite-box">{spriteBoxMaker()}</div> */}
     </div>
   );
 };

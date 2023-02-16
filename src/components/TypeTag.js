@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState, useRef } from "react";
 
 const TypeTag = ({ type }) => {
-  const isInitialMount = useRef(true);
   const [frName, setFrName] = useState([]);
 
   const getFrName = () => {
@@ -92,11 +91,7 @@ const TypeTag = ({ type }) => {
   };
 
   useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      getFrName();
-    }
+    getFrName();
   }, [type]);
 
   return (

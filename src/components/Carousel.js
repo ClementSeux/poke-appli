@@ -65,10 +65,18 @@ const Carousel = ({ range }) => {
 
   return (
     <div className="display-carousel">
-      <div className="left-zone" onMouseEnter={() => goLeft()}>
+      <div
+        className="left-zone"
+        onClick={() => goLeft()}
+        onMouseEnter={() => goLeft()}
+      >
         left
       </div>
-      <div className="right-zone" onMouseEnter={() => goRight()}>
+      <div
+        className="right-zone"
+        onClick={() => goRight()}
+        onMouseEnter={() => goRight()}
+      >
         right
       </div>
       <div

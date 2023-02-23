@@ -79,12 +79,9 @@ const Home = () => {
   //front
   return (
     <div>
+      <Navigation size="l" />
       <div id="box1">
-        <Navigation size="l" />
-      </div>
-
-      <div id="box2">
-        <div className="card size-l">
+        <div className={"card size-" + (window.innerWidth > 1000 ? "l" : "m")}>
           <img
             className="card"
             style={{ width: "100%" }}
@@ -94,8 +91,8 @@ const Home = () => {
         </div>
       </div>
 
-      <div id="box3">
-        <Card poke={pokeData} size="l" />
+      <div id="box2">
+        <Card poke={pokeData} size={window.innerWidth > 1000 ? "l" : "m"} />
       </div>
     </div>
   );

@@ -21,7 +21,6 @@ const MovesList = ({ moveListEn, size }) => {
 
   //updates urls
   const fetchUrls = () => {
-    console.log(moveListEn);
     let urlList = [];
     moveListEn.map((move) => urlList.push(move.move.url));
     setUrls(urlList);
@@ -105,6 +104,8 @@ const MovesList = ({ moveListEn, size }) => {
                 <span className="">
                   <b>{move.frName}</b>{" "}
                 </span>
+                {size === "m" && <span> P:{move.pow}</span>}
+
                 {size === "l" && (
                   <span>
                     {" "}

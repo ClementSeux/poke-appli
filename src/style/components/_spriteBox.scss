@@ -1,0 +1,25 @@
+#sprites-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  width: fit-content;
+  margin: 0;
+  padding: 5px;
+  transition: height 0s ease 2s;
+}
+
+.sprite-default {
+  height: fit-content;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  &.card {
+    margin: 0;
+  }
+  transition: height 0s ease 2s;
+  &.visible {
+    opacity: 1;
+  }
+}

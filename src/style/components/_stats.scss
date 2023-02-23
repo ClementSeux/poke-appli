@@ -5,10 +5,13 @@
   justify-content: start;
   align-items: start;
   &.size-s {
-    min-width: 250px;
+    min-width: 230px;
+  }
+  &.size-m {
+    min-width: 300px;
   }
   &.size-l {
-    min-width: 410px;
+    min-width: 500px;
   }
 
   padding-left: 5px;
@@ -21,8 +24,11 @@
 }
 .rep-line {
   &.size-s.line50,
+  &.size-m.line50,
   &.size-s.line150,
-  &.size-s.line200 {
+  &.size-m.line150,
+  &.size-s.line200,
+  &.size-m.line200 {
     opacity: 0;
 
     & > .rep {
@@ -31,6 +37,7 @@
   }
 
   &.size-l,
+  &.size-m.line100,
   &.size-s.line100 {
     opacity: 1;
     position: absolute;
@@ -44,7 +51,8 @@
     &.line100 {
       width: 200px;
     }
-    &.size-s.line100 {
+    &.size-s.line100,
+    &.size-m.line100 {
       width: 100px;
     }
     &.line150 {

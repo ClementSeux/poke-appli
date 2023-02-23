@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import axios from "axios";
 import Carousel from "./Carousel";
 
-const SelectionPanel = () => {
+const SelectionPanel = ({
+  sendCursor, // passe-plat function to send back current cursor
+}) => {
+  //Responsable de la logique d el'écran de sélection
+  const isInitialMount = useRef(true);
+  //input crée ici
   const [gen, setGen] = useState(1);
-  const [rangeSelected, setRange] = useState([]);
+  //input reçue de Carousel
+  const [cursor, setCursor] = useState(1);
 
+  //buttons for gen input
   const genButtonsMaker = () => {
     let content = [];
     let romanNumbers = [
@@ -34,74 +42,129 @@ const SelectionPanel = () => {
     });
     return content;
   };
-
-  const getRange = () => {
-    let range = [];
-    let min = 1;
-    let max = 151;
+  //update range state from buttons input
+  const getNewCursor = (gen) => {
     switch (gen) {
       case 1: //Kanto
-        min = 1;
-        max = 151;
+        return 1;
         break;
       case 2: //Johto
-        min = 152;
-        max = 251;
+        return 152;
         break;
       case 3: //Hoenn
-        min = 252;
-        max = 386;
+        return 252;
         break;
       case 4: //Sinnoh
-        min = 387;
-        max = 493;
+        return 387;
         break;
       case 5: //Unys
-        min = 494;
-        max = 649;
+        return 494;
         break;
       case 6: //Kalos
-        min = 650;
-        max = 721;
+        return 650;
         break;
       case 7: //Alola
-        min = 722;
-        max = 809;
+        return 722;
         break;
       case 8: //Galar
-        min = 810;
-        max = 898;
+        return 810;
         break;
       case 9: //Hisui
-        min = 899;
-        max = 905;
+        return 899;
         break;
       case 10: //Paldea
-        min = 906;
-        max = 1008;
+        return 906;
         break;
     }
-    for (var i = min; i <= max; i++) {
-      range.push(i);
-    }
-    setRange(range);
   };
 
   useEffect(() => {
-    getRange();
+    setCursor(getNewCursor(gen));
   }, [gen]);
 
+  //passe-plat
+  const getCursor = (c) => {
+    setCursor(c);
+  };
+
+  useEffect(() => {
+    sendCursor(cursor);
+  }, [cursor]);
+
+  // ///updates urls
+  // const fetchArray = async () => {
+  //   sendCursor(cursor, realCursor);
+  //   let urlList = [];
+  //   rangeSelected.slice(0, cursor + 8).map((id) => {
+  //     urlList.push("https://pokeapi.co/api/v2/pokemon/" + id);
+  //   });
+  //   setUrls(urlList);
+
+  //   let listing = [];
+  //   let listingCurated = [];
+
+  //   //first list with raw datas from the api
+  //   await axios.all(urls.map((url) => axios.get(url))).then((data) => {
+  //     data.map((item) => listing.push(item.data));
+  //   });
+
+  //   //second list with the data we need
+  //   listing.map(async (item) => {
+  //     let poke = {
+  //       id: item.id,
+  //       frName: "pokémon name",
+  //       spriteUrl: item.sprites.front_default,
+  //       moveListEn: item.moves,
+  //       types: [],
+  //       stats: [],
+  //     };
+  //     //fetch name
+  //     await axios.get(item.species.url).then((res) => {
+  //       let tempFrName = "";
+  //       try {
+  //         tempFrName = res.data.names.filter((n) => n.language.name === "fr")[0]
+  //           .name;
+  //       } catch {
+  //         tempFrName =
+  //           res.data.names.filter((n) => n.language.name === "en")[0].name +
+  //           " (en)";
+  //       }
+  //       poke.frName = tempFrName;
+  //     });
+  //     //fetch types
+  //     poke.types = [item.types[0].type.name];
+  //     if (item.types[1]) {
+  //       poke.types.push(item.types[1].type.name);
+  //     }
+  //     //fetch stats
+  //     let array = [];
+  //     item.stats.map((entry) => {
+  //       let statName = entry.stat.name;
+  //       let base_stat = entry.base_stat;
+  //       array.push({ name: statName, base_stat: base_stat });
+  //     });
+  //     poke.stats = array;
+
+  //     listingCurated.push(poke);
+  //   });
+
+  //   if (
+  //     listing > arrayOfPokeDatas ||
+  //     (listing[0] && listing[0].id !== arrayOfPokeDatas[0].id)
+  //   ) {
+  //     setArrayOfPokeDatas(listingCurated);
+  //   }
+  // };
+
+  //front
   return (
     <div className="panel">
-      <div className="gen-folders">
-        {genButtonsMaker()}
-        <div className="display-range-limits">
-          <span>
-            # {rangeSelected[0]} - # {rangeSelected[rangeSelected.length - 1]}
-          </span>
-        </div>
-      </div>
-      <Carousel range={rangeSelected} />
+      <div className="gen-folders">{genButtonsMaker()}</div>
+      <Carousel
+        cursorJumper={cursor}
+        // arrayOfPokeDatas={arrayOfPokeDatas}
+        sendCursor={getCursor} // passe-plat
+      />
     </div>
   );
 };

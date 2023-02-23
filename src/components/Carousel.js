@@ -2,12 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { clear } from "@testing-library/user-event/dist/clear";
 
-const Carousel = ({ range }) => {
+const Carousel = ({
+  cursorJumper,
+  // arrayOfPokeDatasReceived = array of pokeData objects already fetched in SPanel (is upated bit by bit)
+  sendCursor, // passe-plat function to send back current cursor
+}) => {
   const [cursor, setCursor] = useState(1);
-  const [loaded, setLoaded] = useState(12);
-  const [pokeData, setData] = useState([]);
-  const [moveRight, setMoveRight] = useState(false);
-  const [moveLeft, setMoveLeft] = useState(false);
+  const [range, setRange] = useState(
+    Array.from(Array(1008).keys()).slice(1, 10000)
+  );
 
   const ballMaker = () => {
     let content = [];
@@ -48,46 +51,41 @@ const Carousel = ({ range }) => {
   };
 
   const goLeft = () => {
-    if (cursor > range[0]) {
+    if (cursor > 1) {
       setCursor(cursor - 1);
     }
   };
 
   const goRight = () => {
-    if (range[range.length - 1] > cursor) {
+    if (cursor < 1008) {
       setCursor(cursor + 1);
     }
   };
 
   useEffect(() => {
-    setCursor(range[0]);
-  }, [range]);
+    setCursor(cursorJumper);
+  }, [cursorJumper]);
+
+  useEffect(() => {
+    sendCursor(cursor);
+  }, [cursor]);
 
   return (
     <div className="display-carousel">
-      <div
-        className="left-zone"
-        onClick={() => goLeft()}
-        onMouseEnter={() => goLeft()}
-      >
-        left
+      <div className="left-zone" onClick={() => goLeft()}>
+        <span>&lt;</span>
       </div>
-      <div
-        className="right-zone"
-        onClick={() => goRight()}
-        onMouseEnter={() => goRight()}
-      >
-        right
+      <div className="right-zone" onClick={() => goRight()}>
+        <span>&gt;</span>
       </div>
       <div
         className="ball-row"
         style={{
-          left: window.innerWidth / 2 - 38 * (cursor - range[0] + 1) + "px",
+          left: window.innerWidth / 2 - 38 * cursor + "px",
         }}
       >
         <div className="circle">{ballMaker()}</div>
       </div>
-      {/* <div className="flying-sprite-box">{spriteBoxMaker()}</div> */}
     </div>
   );
 };

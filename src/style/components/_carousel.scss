@@ -60,8 +60,17 @@
   top: 0;
   left: 0;
   height: 100%;
-  opacity: 0;
-  width: 25%;
+  opacity: 1;
+  width: 40%;
+  z-index: 200;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > span {
+    color: #b8b7b7;
+    font-size: larger;
+  }
 }
 
 .right-zone {
@@ -69,8 +78,17 @@
   top: 0;
   right: 0;
   height: 100%;
-  opacity: 0;
-  width: 25%;
+  opacity: 1;
+  width: 40%;
+  z-index: 200;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > span {
+    color: #b8b7b7;
+    font-size: larger;
+  }
 }
 
 .ball-row {

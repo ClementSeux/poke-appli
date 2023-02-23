@@ -21,6 +21,7 @@ const PokeInfo = () => {
   });
 
   const [number, setNumber] = useState(25);
+  const [CyclicRender, cycleResponsiveRender] = useState(1);
 
   const getRndNumber = () => {
     setNumber(Math.ceil(Math.random() * 1007) + 1);
@@ -80,7 +81,13 @@ const PokeInfo = () => {
 
   const toggleModeButton = () => {
     return (
-      <div className="button" onClick={() => toggleMode()}>
+      <div
+        className="button"
+        onClick={() => {
+          window.scrollTo(0, 0);
+          toggleMode();
+        }}
+      >
         Galerie
       </div>
     );
@@ -94,19 +101,34 @@ const PokeInfo = () => {
   }, [number]);
 
   useEffect(() => {
-    console.log(selectionModeToggle);
-  }, [selectionModeToggle]);
+    const interval = setInterval(() => {
+      cycleResponsiveRender(Math.random());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   //front
   return (
-    <>
-      <SelectionMode visible={selectionModeToggle} toggleMode={toggleMode} />
-
-      <div id="wrapper">
+    <div
+      className={
+        window.innerWidth > 1000 && window.innerHeight > 600
+          ? "large-screen"
+          : ""
+      }
+    >
+      <SelectionMode
+        visible={selectionModeToggle}
+        toggleMode={toggleMode}
+        windowWidth={window.innerWidth}
+      />
+      <Navigation size="m" />
+      <div
+        id={
+          window.innerWidth > 1000 && window.innerHeight > 600 ? "wrapper" : ""
+        }
+      >
         <div id="box1">
-          <Navigation size="m" />
-
-          <Card poke={pokeData} size="m" />
+          <Card poke={pokeData} size={window.innerWidth > 1500 ? "l" : "m"} />
 
           <div id="form">
             <div
@@ -137,12 +159,18 @@ const PokeInfo = () => {
         </div>
 
         <div id="box2">
-          <Stats stats={pokeData.stats} size="l" />
+          <Stats
+            stats={pokeData.stats}
+            size={window.innerWidth > 1200 ? "xl" : "m"}
+          />
 
-          <MovesList moveListEn={pokeData.moveListEn} size={"l"} />
+          <MovesList
+            moveListEn={pokeData.moveListEn}
+            size={window.innerWidth > 1200 ? "xl" : "m"}
+          />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

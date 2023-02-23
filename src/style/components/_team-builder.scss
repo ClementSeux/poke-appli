@@ -6,3 +6,80 @@
   align-items: center;
   padding: 5px 75px;
 }
+
+.types-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+#tool-bar {
+  z-index: 50;
+  position: sticky;
+  top: 15px;
+  align-self: flex-start;
+  width: 0;
+  height: 0;
+  &.visible {
+    width: 250px;
+    height: 90vh;
+  }
+}
+.tool-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  width: 80px;
+  height: 80px;
+  border-radius: 25px;
+  margin: 12px;
+  background-color: #ff85a6;
+
+  & > .tool-box-button {
+    display: block;
+    position: relative;
+    z-index: 80;
+    cursor: pointer;
+    height: 100%;
+    color: white;
+    font-size: 3.5em;
+  }
+  & > .inner-tool-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
+    height: 0;
+    opacity: 0;
+  }
+  &.visible {
+    background-color: white;
+    width: fit-content;
+    height: fit-content;
+    & > .tool-box-button {
+      display: none;
+    }
+    & > .inner-tool-box {
+      height: fit-content;
+      opacity: 1;
+    }
+  }
+}
+.cross {
+  cursor: pointer;
+  padding: 5px 5px 5px 10px;
+  align-self: flex-start;
+}
+.id-card {
+  position: relative;
+  width: 200px;
+}
+
+.outflow {
+  position: absolute;
+  top: 195px;
+  left: 10px;
+}

@@ -8,17 +8,31 @@
 @import "./components/team-builder.scss";
 @import "./components/carousel.scss";
 @import "./screens/selection-mode.scss";
+@import "./components/spriteBox.scss";
 
 body {
-  height: 100vh;
-
+  height: fit-content;
   font-family: sans-serif;
   background-image: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
+  width: 100vw;
+
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.large-screen {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
 }
 
 #wrapper {
-  height: 80vh;
-  width: 100%;
+  height: 95vh;
+  width: 100vw;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -60,12 +74,17 @@ body {
   align-items: center;
   &.size-s {
     width: 150px;
+    height: 210px;
   }
   &.size-m {
     max-width: 400px;
   }
   &.size-l {
-    max-width: 450px;
+    max-width: 500px;
+  }
+  &.size-xl {
+    max-width: 500px;
+    height: 210px;
   }
 }
 

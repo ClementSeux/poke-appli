@@ -18,7 +18,11 @@ const Stats = ({ stats, size }) => {
             <div className={"stat-line size-" + size} key={i}>
               <div
                 className={"bar " + stat.name}
-                style={{ width: stat.base_stat * (size === "s" ? 1 : 2) }}
+                style={{
+                  width:
+                    stat.base_stat *
+                    (size === "s" ? 1 : size === "m" ? 1.5 : 2),
+                }}
               >
                 <span className="stat-tag">
                   {stat.name}:{stat.base_stat}

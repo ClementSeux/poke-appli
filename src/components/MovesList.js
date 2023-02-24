@@ -2,12 +2,32 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import TypeTag from "./TypeTag";
 
-const MovesList = ({ moveListEn, size }) => {
+const MovesList = ({ moveListEn, size, sendCoverage, rank }) => {
   const isInitialMount = useRef(true);
 
   const [urls, setUrls] = useState([]);
   const [list, setList] = useState([]);
   const [frNames, setFrNames] = useState([]);
+  const [coverage, setCoverage] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+  });
 
   const getTranslation = (names) => {
     let frName = "";
@@ -36,23 +56,109 @@ const MovesList = ({ moveListEn, size }) => {
     });
   };
 
+  const getTypeNumber = (typeName) => {
+    switch (typeName) {
+      case "normal":
+        return 1;
+        break;
+      case "fighting":
+        return 2;
+        break;
+      case "flying":
+        return 3;
+        break;
+      case "poison":
+        return 4;
+        break;
+      case "ground":
+        return 5;
+        break;
+      case "rock":
+        return 6;
+        break;
+      case "bug":
+        return 7;
+        break;
+      case "ghost":
+        return 8;
+        break;
+      case "steel":
+        return 9;
+        break;
+      case "fire":
+        return 10;
+        break;
+      case "water":
+        return 11;
+        break;
+      case "grass":
+        return 12;
+        break;
+      case "electric":
+        return 13;
+        break;
+      case "psychic":
+        return 14;
+        break;
+      case "ice":
+        return 15;
+        break;
+      case "dragon":
+        return 16;
+        break;
+      case "dark":
+        return 17;
+        break;
+      case "fairy":
+        return 18;
+        break;
+    }
+  };
+
+  const addCoverage = (typeEn) => {
+    let coverageCopy = coverage;
+    coverageCopy[getTypeNumber(typeEn)] = true;
+    setCoverage(coverageCopy);
+  };
+
   //update frNames
   const getFrNames = () => {
-    let frListing = [];
-    list.map((move) => {
-      frListing.push({
-        frName: getTranslation(move.names),
-        pow: move.power,
-        acc: move.accuracy,
-        type: move.type,
-        class: move.damage_class.name,
-      });
-      frListing = frListing
-        .sort((a, b) => b.pow - a.pow)
-        .filter((move) => move.pow >= 55 && move.pow < 150 && move.acc > 69)
-        .slice(0, 20);
+    //reinitialize coverage
+    setCoverage({
+      1: false,
+      2: false,
+      3: false,
+      4: false,
+      5: false,
+      6: false,
+      7: false,
+      8: false,
+      9: false,
+      10: false,
+      11: false,
+      12: false,
+      13: false,
+      14: false,
+      15: false,
+      16: false,
+      17: false,
+      18: false,
     });
 
+    let frListing = [];
+    list.map((move) => {
+      if (move.power >= 55 && move.power < 150 && move.accuracy > 69) {
+        addCoverage(move.type.name);
+        frListing.push({
+          frName: getTranslation(move.names),
+          pow: move.power,
+          acc: move.accuracy,
+          type: move.type,
+          class: move.damage_class.name,
+        });
+      }
+    });
+    frListing = frListing.sort((a, b) => b.pow - a.pow);
     setFrNames(frListing);
   };
 
@@ -79,6 +185,14 @@ const MovesList = ({ moveListEn, size }) => {
       getFrNames();
     }
   }, [list]);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      sendCoverage(coverage, rank);
+    }
+  }, [coverage]);
 
   return (
     <div className={"card size-" + size}>

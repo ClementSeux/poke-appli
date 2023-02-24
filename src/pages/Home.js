@@ -80,6 +80,7 @@ const Home = () => {
   return (
     <div>
       <Navigation size="l" />
+
       <div id="box1">
         <div className={"card size-" + (window.innerWidth > 1000 ? "l" : "m")}>
           <img

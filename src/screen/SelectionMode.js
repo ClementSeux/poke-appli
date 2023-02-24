@@ -171,7 +171,7 @@ const SelectionMode = ({
                 <MovesList
                   moveListEn={pokeSelected.moveListEn}
                   size={
-                    windowWidth < 1000 ? "l" : windowWidth < 1400 ? "m" : "l"
+                    windowWidth < 1000 ? "xl" : windowWidth < 1400 ? "m" : "l"
                   }
                 />
               </>

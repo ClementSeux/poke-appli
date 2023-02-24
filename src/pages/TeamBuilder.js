@@ -18,6 +18,16 @@ const TeamBuilder = () => {
   const [number4, setNumber4] = useState(149);
   const [number5, setNumber5] = useState(882);
   const [number6, setNumber6] = useState(865);
+  const arrayOfNumbers = [number1, number2, number3, number4, number5, number6];
+  const arrayOfSetters = [
+    setNumber1,
+    setNumber2,
+    setNumber3,
+    setNumber4,
+    setNumber5,
+    setNumber6,
+  ];
+
   const [pokeData1, setPokeData1] = useState({
     id: null,
     frName: "",
@@ -66,18 +76,6 @@ const TeamBuilder = () => {
     types: [],
     stats: [],
   });
-
-  const arrayOfNumbers = [number1, number2, number3, number4, number5, number6];
-
-  const arrayOfSetters = [
-    setNumber1,
-    setNumber2,
-    setNumber3,
-    setNumber4,
-    setNumber5,
-    setNumber6,
-  ];
-
   const arrayOfPokeData = [
     pokeData1,
     pokeData2,
@@ -86,7 +84,6 @@ const TeamBuilder = () => {
     pokeData5,
     pokeData6,
   ];
-
   const arrayOfSetPokeData = [
     setPokeData1,
     setPokeData2,
@@ -94,6 +91,144 @@ const TeamBuilder = () => {
     setPokeData4,
     setPokeData5,
     setPokeData6,
+  ];
+
+  const [coverage1, setCoverage1] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+  });
+  const [coverage2, setCoverage2] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+  });
+  const [coverage3, setCoverage3] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+  });
+  const [coverage4, setCoverage4] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+  });
+  const [coverage5, setCoverage5] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+  });
+  const [coverage6, setCoverage6] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+  });
+
+  const arrayOfCoverage = [
+    coverage1,
+    coverage2,
+    coverage3,
+    coverage4,
+    coverage5,
+    coverage6,
+  ];
+  const arrayOfSetCoverage = [
+    setCoverage1,
+    setCoverage2,
+    setCoverage3,
+    setCoverage4,
+    setCoverage5,
+    setCoverage6,
   ];
 
   const loadPokeData = async (num, i) => {
@@ -148,7 +283,6 @@ const TeamBuilder = () => {
     }
   };
   const getRndNumbers = () => {
-    console.log("get rnd numbers run");
     let array = [];
     for (var i = 0; i < 6; i++) {
       array.push(Math.ceil(Math.random() * 1007) + 1);
@@ -587,27 +721,99 @@ const TeamBuilder = () => {
   };
 
   const analyseTeam = () => {
-    let array;
+    let array = [];
 
-    let teamAttack = [];
-    arrayOfPokeData.map((data) => {
-      data.types.map((t) => {
-        let n = getTypeNumber(t);
-        teamAttack[n] = true;
-      });
-    });
+    //teamAttack is an array associating each type N
+    //with an array listing the pokemons from the team
+    //with moves of this type.
+    let teamAttack = {
+      1: [],
+      2: [],
+      3: [],
+      4: [],
+      5: [],
+      6: [],
+      7: [],
+      8: [],
+      9: [],
+      10: [],
+      11: [],
+      12: [],
+      13: [],
+      14: [],
+      15: [],
+      16: [],
+      17: [],
+      18: [],
+    };
 
-    let teamDefense = [];
-    arrayOfPokeData.map((data) => {
-      data.types.map((t) => {
-        let n = getTypeNumber(t);
-        teamAttack[n] = true;
-      });
+    //on map à travers les 6 coverages
+    arrayOfCoverage.map((coverage, r) => {
+      //pour chaque coverage on égraine les types
+      for (let i = 1; i <= 18; i++) {
+        //si le type est couvert
+        if (coverage[i]) {
+          //     //on ajoute le nom du poké à la liste de ceux qui couvrent le type
+          teamAttack[i].push(arrayOfPokeData[r].frName);
+        }
+      }
     });
 
     console.log(teamAttack);
+
+    //teamDefense is an array listing each poke of the team
+    //with an object = {name: 'Pikachu', types : [13,]}
+    let teamDefense = [];
+    arrayOfPokeData.map((data) => {
+      let pokeTypesList = { name: data.frName, types: [] };
+      data.types.map((t) => {
+        let n = getTypeNumber(t);
+        pokeTypesList.types.push(n);
+      });
+      teamDefense.push(pokeTypesList);
+    });
+
+    //for each type...
     for (let i = 1; i <= 18; i++) {
-      let score;
+      let score = {
+        weakness: 0,
+        resisted: 0,
+        strength: 0,
+        weakList: [],
+        resistList: [],
+        strongList: [],
+      };
+
+      //team attack against this type analysis
+      for (let a = 1; a <= 18; a++) {
+        if (teamAttack[a] && compareTypes(a, i) > 1) {
+          score.strength++;
+          score.strongList = score.strongList.concat(
+            teamAttack[a].filter((item) => score.strongList.indexOf(item) < 0)
+          );
+        }
+      }
+
+      //team defense against this type analysis
+      teamDefense.map((poke) => {
+        //we define the global multiplier
+        //when this poke receive this type of moves
+        let computedUnitaryScore = 1;
+        poke.types.map((t) => {
+          computedUnitaryScore = computedUnitaryScore * compareTypes(i, t);
+        });
+
+        //then we add the poke to the resisted list or to the weakness list
+        if (computedUnitaryScore < 1) {
+          score.weakness++;
+          score.weakList.push(poke.name);
+        } else if (computedUnitaryScore > 1) {
+          score.resisted++;
+          score.resistList.push(poke.name);
+        }
+      });
+
+      array[i] = score;
     }
 
     return array;
@@ -615,10 +821,67 @@ const TeamBuilder = () => {
 
   const getTypeBar = () => {
     //bar central
-    analyseTeam();
+    let analyse = analyseTeam();
+
     let content = [];
+    content.push(
+      <li key={i} className="header-line">
+        <div className="type-cell">
+          <span>Type</span>
+        </div>
+
+        <div className="cell">
+          <span className="tag-w">Faiblesses</span>
+        </div>
+
+        <div className="cell">
+          <span className="tag-r">Resistance</span>
+        </div>
+        <div className="cell">
+          <span className="tag-s">Coverage</span>
+        </div>
+      </li>
+    );
+
     for (var i = 1; i < 19; i++) {
-      content.push(<TypeTag type={i} />);
+      let weaknessList = analyse[i].weakList.map((name) => <li>{name}</li>);
+      let resistList = analyse[i].resistList.map((name) => <li>{name}</li>);
+      let coverageList = analyse[i].strongList.map((name) => <li>{name}</li>);
+
+      content.push(
+        <li
+          key={i}
+          className="sythesis-line"
+          style={{
+            boxShadow:
+              "inset 0 -12px 12px rgb(" +
+              250 +
+              "," +
+              (250 - 10 * analyse[i].resisted * analyse[i].resisted) +
+              "," +
+              250 +
+              "), inset 0 25px 12px rgba(250,250,250,0.7",
+          }}
+        >
+          <div className="type-cell">
+            <TypeTag type={i} />
+          </div>
+
+          <div className="cell">
+            <span className="tag-w">{analyse[i].resisted}</span>
+            <div className={"on-hover"}>{resistList}</div>
+          </div>
+
+          <div className="cell">
+            <span className="tag-r">{analyse[i].weakness}</span>
+            <div className={"on-hover"}>{weaknessList}</div>
+          </div>
+          <div className="cell">
+            <span className="tag-s">{analyse[i].strength}</span>
+            <div className={"on-hover"}>{coverageList}</div>
+          </div>
+        </li>
+      );
     }
     return <div className="types-list">{content}</div>;
   };
@@ -646,6 +909,28 @@ const TeamBuilder = () => {
       <div className="id-card">
         <Card poke={arrayOfPokeData[i]} size="s" />
         <div className="outflow">{getField(i)}</div>
+      </div>
+    );
+  };
+
+  //passe-plat coverages
+  const getCoverage = (receivedCoverage, n) => {
+    arrayOfSetCoverage[n](receivedCoverage);
+  };
+
+  const getTeamMember = (n) => {
+    return (
+      <div className="boxlat">
+        {getCard(n)}
+        {window.innerWidth > 700 && (
+          <Stats stats={arrayOfPokeData[n].stats} size="s" />
+        )}
+        <MovesList
+          moveListEn={arrayOfPokeData[n].moveListEn}
+          size="m"
+          sendCoverage={getCoverage}
+          rank={n}
+        />
       </div>
     );
   };
@@ -789,36 +1074,12 @@ const TeamBuilder = () => {
           {/* {window.innerWidth > 1500 && <div id="types-bar">{getTypeBar()}</div>} */}
         </div>
 
-        <div className="boxlat">
-          {getCard(0)}
-          <Stats stats={arrayOfPokeData[0].stats} size="s" />
-          <MovesList moveListEn={arrayOfPokeData[0].moveListEn} size="m" />
-        </div>
-        <div className="boxlat">
-          {getCard(2)}
-          <Stats stats={arrayOfPokeData[2].stats} size="s" />
-          <MovesList moveListEn={arrayOfPokeData[2].moveListEn} size="m" />
-        </div>
-        <div className="boxlat">
-          {getCard(4)}
-          <Stats stats={arrayOfPokeData[4].stats} size="s" />
-          <MovesList moveListEn={arrayOfPokeData[4].moveListEn} size="m" />
-        </div>
-        <div className="boxlat">
-          {getCard(1)}
-          <Stats stats={arrayOfPokeData[1].stats} size="s" />
-          <MovesList moveListEn={arrayOfPokeData[1].moveListEn} size="m" />
-        </div>
-        <div className="boxlat">
-          {getCard(3)}
-          <Stats stats={arrayOfPokeData[3].stats} size="s" />
-          <MovesList moveListEn={arrayOfPokeData[3].moveListEn} size="m" />
-        </div>
-        <div className="boxlat">
-          {getCard(5)}
-          <Stats stats={arrayOfPokeData[5].stats} size="s" />
-          <MovesList moveListEn={arrayOfPokeData[5].moveListEn} size="m" />
-        </div>
+        {getTeamMember(0)}
+        {getTeamMember(2)}
+        {getTeamMember(4)}
+        {getTeamMember(1)}
+        {getTeamMember(3)}
+        {getTeamMember(5)}
       </div>
     </div>
   );

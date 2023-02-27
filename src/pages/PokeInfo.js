@@ -79,6 +79,11 @@ const PokeInfo = () => {
     toggleSelectionMode(!selectionModeToggle);
   };
 
+  const selectionDone = (number) => {
+    setNumber(number);
+    toggleSelectionMode(false);
+  };
+
   const toggleModeButton = () => {
     return (
       <div
@@ -92,6 +97,9 @@ const PokeInfo = () => {
       </div>
     );
   };
+
+  const placeHolder = () => {};
+
   useEffect(() => {
     getRndNumber();
   }, []);
@@ -120,6 +128,7 @@ const PokeInfo = () => {
         visible={selectionModeToggle}
         toggleMode={toggleMode}
         windowWidth={window.innerWidth}
+        select={selectionDone}
       />
       <Navigation size="m" />
       <div
@@ -161,12 +170,14 @@ const PokeInfo = () => {
         <div id="box2">
           <Stats
             stats={pokeData.stats}
-            size={window.innerWidth > 1200 ? "xl" : "m"}
+            size={window.innerWidth > 1200 ? "l" : "m"}
           />
 
           <MovesList
             moveListEn={pokeData.moveListEn}
-            size={window.innerWidth > 1200 ? "xl" : "m"}
+            size={window.innerWidth > 1200 ? "l" : "m"}
+            sendCoverage={placeHolder}
+            rank={1}
           />
         </div>
       </div>

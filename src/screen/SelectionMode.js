@@ -10,6 +10,7 @@ const SelectionMode = ({
   windowWidth,
   visible, // when true, grey screen become visible
   toggleMode, //passe plat function to tell the page to make it invisible (return button)
+  select, //passe plat selection
 }) => {
   //recu de carousel
   const [cursor, setCursor] = useState(1);
@@ -139,6 +140,8 @@ const SelectionMode = ({
     setCursor(c);
   };
 
+  const placeHolder = () => {};
+
   useEffect(() => {
     updateArray(cursor);
   }, [cursor]);
@@ -171,8 +174,10 @@ const SelectionMode = ({
                 <MovesList
                   moveListEn={pokeSelected.moveListEn}
                   size={
-                    windowWidth < 1000 ? "xl" : windowWidth < 1400 ? "m" : "l"
+                    windowWidth < 1000 ? "xl" : windowWidth < 1400 ? "m" : "xl"
                   }
+                  sendCoverage={placeHolder}
+                  rank={1}
                 />
               </>
             )}
@@ -182,6 +187,9 @@ const SelectionMode = ({
 
           <div className="button" onClick={() => toggleMode()}>
             Retour
+          </div>
+          <div className="button" onClick={() => select(cursor)}>
+            Valider la Sélection
           </div>
         </>
       )}

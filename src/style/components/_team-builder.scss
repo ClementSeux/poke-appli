@@ -155,6 +155,7 @@
   border-radius: 5px;
   background-color: #ddd;
   &:hover {
+    z-index: 60;
     height: fit-content;
     opacity: 1;
   }

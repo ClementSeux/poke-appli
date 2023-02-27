@@ -4,12 +4,17 @@
   & > ul {
     display: flex;
     flex-direction: row;
+    width: 100%;
 
     justify-content: space-around;
-    align-items: center;
+    align-items: stretch;
 
     & a {
       position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
       &:active,
       &:hover,
       &:visited,
@@ -21,7 +26,8 @@
   }
 }
 a.nav-active {
-  box-shadow: inset 30px 30px rgba(100, 100, 100, 0.3);
+  box-shadow: inset 300px 300px rgba(100, 100, 100, 0.25);
+  color: #ddd;
 }
 
 #title-menu {

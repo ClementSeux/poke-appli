@@ -859,8 +859,8 @@ const TeamBuilder = () => {
               "," +
               (250 - 10 * analyse[i].resisted * analyse[i].resisted) +
               "," +
-              250 +
-              "), inset 0 25px 12px rgba(250,250,250,0.7",
+              (250 - 10 * analyse[i].resisted * analyse[i].resisted) +
+              ")",
           }}
         >
           <div className="type-cell">
